@@ -1,24 +1,24 @@
 package machine;
 
-public class DFAMachine {
-    private final States states;
-    private final TransitionFunction transitionFunction;
-    private final String initialState;
+import java.util.List;
 
-    public DFAMachine(States states, TransitionFunction transitionFunction, String initialState) {
-        this.states = states;
+public class DFAMachine {
+    private final TransitionFunction transitionFunction;
+    private final State initialState;
+
+    public DFAMachine(TransitionFunction transitionFunction, State initialState) {
         this.transitionFunction = transitionFunction;
         this.initialState = initialState;
     }
 
     public boolean isRecognizes(String pattern) {
-        String currentState = initialState;
+        State currentState = initialState;
         for (char transition : pattern.toCharArray()) {
-                currentState= transitionFunction.process(currentState, transition);
-                if(currentState == null) {
-                    return false;
-                }
+            currentState = transitionFunction.process(currentState, transition);
+            if (currentState == null) {
+                return false;
+            }
         }
-        return states.isFinalState(currentState);
+        return currentState.isFinalState();
     }
 }

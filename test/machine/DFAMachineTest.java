@@ -1,9 +1,9 @@
 package machine;
 
-import machine.DFAMachine;
-import machine.States;
-import machine.TransitionFunction;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -11,21 +11,22 @@ import static org.junit.Assert.assertTrue;
 public class DFAMachineTest {
     @Test
     public void shouldRecognizeAllStringWhichAllElementAreOnes() throws Exception {
-        States states = new States();
-        states.add("q0");
-        states.add("q1");
-        states.setFinalState("q0");
-        states.setInitialState("q0");
-        String initialState = states.getInitialState();
+        State q0State = new State("q0");
+        q0State.setFinalState();
+        q0State.setInitialState();
+        State q1State = new State("q1");
+
         TransitionFunction transitionFunction = new TransitionFunction();
-        transitionFunction.setTransition("q0","q0",'1');
-        transitionFunction.setTransition("q0","q1",'0');
-        transitionFunction.setTransition("q1","q1",'1');
-        transitionFunction.setTransition("q1","q1",'0');
-        DFAMachine machine = new DFAMachine(states,transitionFunction,initialState);
-        
+        transitionFunction.setTransition(q0State, q0State, '1');
+        transitionFunction.setTransition(q0State, q1State, '0');
+        transitionFunction.setTransition(q1State, q1State, '1');
+        transitionFunction.setTransition(q1State, q1State, '0');
+
+        DFAMachine machine = new DFAMachine(transitionFunction, q0State);
+
         assertTrue(machine.isRecognizes("1111"));
-        assertFalse(machine.isRecognizes("11011"));
+        assertFalse(machine.isRecognizes("1111110"));
+        assertFalse(machine.isRecognizes("011110"));
 
 
     }
