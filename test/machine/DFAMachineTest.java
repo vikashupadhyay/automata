@@ -2,9 +2,6 @@ package machine;
 
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -29,5 +26,36 @@ public class DFAMachineTest {
         assertFalse(machine.isRecognizes("011110"));
 
 
+    }
+
+    @Test
+    public void shouldRecognizeStringWhichIsStartWithZeroAndZeroAndOnesShouldBeInAlternatePosition() throws Exception {
+        State q1 = new State("q1");
+        q1.setInitialState();
+        State q2 = new State("q2");
+        q2.setFinalState();
+        State q3 = new State("q3");
+        q3.setFinalState();
+        State q4 = new State("q4");
+
+        TransitionFunction transitionFunction = new TransitionFunction();
+        transitionFunction.setTransition(q1, q2, '0');
+        transitionFunction.setTransition(q1, q4, '1');
+        transitionFunction.setTransition(q2, q4, '0');
+        transitionFunction.setTransition(q2, q3, '1');
+        transitionFunction.setTransition(q3, q2, '0');
+        transitionFunction.setTransition(q3, q4, '1');
+        transitionFunction.setTransition(q4, q4, '0');
+        transitionFunction.setTransition(q4, q4, '1');
+        DFAMachine machine = new DFAMachine(transitionFunction, q1);
+
+        assertTrue(machine.isRecognizes("01"));
+        assertTrue(machine.isRecognizes("010"));
+        assertTrue(machine.isRecognizes("0101"));
+        assertTrue(machine.isRecognizes("0101010"));
+        assertFalse(machine.isRecognizes("010100"));
+        assertFalse(machine.isRecognizes("0100"));
+        assertTrue(machine.isRecognizes("0"));
+        assertFalse(machine.isRecognizes("1"));
     }
 }
