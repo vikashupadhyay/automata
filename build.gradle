@@ -1,0 +1,14 @@
+group 'step'
+version '1.0'
+
+apply plugin:'java'
+
+repositories{
+    mavenCentral()
+}
+
+dependencies{
+    compile 'com.google.code.gson:gson:2.2.+'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile "org.mockito:mockito-core:1.+"
+}
