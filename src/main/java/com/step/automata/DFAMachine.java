@@ -26,9 +26,6 @@ public class DFAMachine {
         for (char transition : pattern.toCharArray()) {
             validateTransition(transition);
             currentState = transitionFunction.getNextState(currentState, transition);
-            if (currentState == null) {
-                return false;
-            }
         }
         return finalStates.contains(currentState);
     }
