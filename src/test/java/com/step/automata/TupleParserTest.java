@@ -1,30 +1,35 @@
 package com.step.automata;
 
+import com.step.automata.dfa.DFATransitionFunction;
+import com.step.automata.utils.State;
+import com.step.automata.utils.States;
+import com.step.automata.utils.TupleParser;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 
 public class TupleParserTest {
-    private ArrayList<String> states;
-    private ArrayList<String> alphabets;
+    private Set<String> states;
+    private Set<String> alphabets;
     private HashMap<String, HashMap<String, String>> deltaFun;
-    private ArrayList<String> finalStates;
+    private Set<String> finalStates;
     private String startState;
 
     @Before
     public void setUp() throws Exception {
         startState = "q1";
-        states = new ArrayList<String>();
+        states = new HashSet<>();
         states.add("q1");
         states.add("q2");
 
 
-        alphabets = new ArrayList<String>();
+        alphabets = new HashSet<>();
         alphabets.add("0");
         alphabets.add("1");
 
@@ -41,7 +46,7 @@ public class TupleParserTest {
         deltaFun.put("q1", transitionForQ1);
         deltaFun.put("q2", transitionForQ2);
 
-        finalStates = new ArrayList<>();
+        finalStates = new HashSet<>();
         finalStates.add("q2");
 
     }
@@ -49,7 +54,7 @@ public class TupleParserTest {
     @Test
     public void shouldParseAllStates() throws Exception {
         TupleParser parse = new TupleParser(states, alphabets, deltaFun, "q1", finalStates);
-        HashSet<State> expectedAllStates = new HashSet<>();
+        States expectedAllStates = new States();
         expectedAllStates.add(new State("q1"));
         expectedAllStates.add(new State("q2"));
         assertEquals(parse.parseStates(), expectedAllStates);
@@ -60,7 +65,7 @@ public class TupleParserTest {
     @Test
     public void shouldParseFinalStates() throws Exception {
         TupleParser parse = new TupleParser(states, alphabets, deltaFun, "q1", finalStates);
-        HashSet<State> expectedFinalStates = new HashSet<>();
+        States expectedFinalStates = new States();
         expectedFinalStates.add(new State("q2"));
         assertEquals(parse.parseFinalStates(), expectedFinalStates);
         assertEquals(parse.parseFinalStates().size(), 1);
@@ -78,15 +83,15 @@ public class TupleParserTest {
     public void shouldParseTransitionTable() throws Exception {
         TupleParser tupleParser = new TupleParser(states, alphabets, deltaFun, "q1", finalStates);
 
-        TransitionFunction transitionFunction = tupleParser.parseTransitionTable();
+        DFATransitionFunction transitionFunction = tupleParser.parseTransitionTable();
 
-        TransitionFunction expected = new TransitionFunction();
+        DFATransitionFunction expected = new DFATransitionFunction();
         State q1 = new State("q1");
         State q2 = new State("q2");
-        expected.setTransition(q1, q2, '0');
-        expected.setTransition(q1, q1, '1');
-        expected.setTransition(q2, q1, '0');
-        expected.setTransition(q2, q2, '1');
+        expected.addTransition(q1, q2, '0');
+        expected.addTransition(q1, q1, '1');
+        expected.addTransition(q2, q1, '0');
+        expected.addTransition(q2, q2, '1');
 
         assertEquals(expected, transitionFunction);
 

@@ -1,18 +1,18 @@
-package com.step.automata;
+package com.step.automata.utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
+import com.step.automata.dfa.DFATransitionFunction;
 
-public class TupleParser {
-    private final ArrayList<String> alphabets;
+import java.util.*;
+
+public class TupleParser{
+    private final Set<String> alphabets;
     private final String start_state;
-    private final ArrayList<String> final_states;
-    private final ArrayList<String> states;
+    private final Set<String> final_states;
+    private final Set<String> states;
+
     private HashMap<String, HashMap<String, String>> delta;
 
-    public TupleParser(ArrayList<String> states, ArrayList<String> alphabets, HashMap<String, HashMap<String, String>> delta, String start_state, ArrayList<String> final_states) {
+    public TupleParser(Set<String> states, Set<String> alphabets, HashMap<String, HashMap<String, String>> delta, String start_state, Set<String> final_states) {
         this.states = states;
         this.alphabets = alphabets;
         this.delta = delta;
@@ -20,27 +20,27 @@ public class TupleParser {
         this.final_states = final_states;
     }
 
-    public HashSet<State> parseStates() {
-        HashSet<State> newStates = new HashSet<>();
+    public States parseStates() {
+        States newStates = new States();
         for (String state : states) {
             newStates.add(new State(state));
         }
         return newStates;
     }
 
-    public HashSet<State> parseFinalStates() {
-        HashSet<State> newStates = new HashSet<>();
+    public States parseFinalStates() {
+        States newStates = new States();
         for (String state : final_states) {
             newStates.add(new State(state));
         }
         return newStates;
     }
 
-    public TransitionFunction parseTransitionTable() {
-        TransitionFunction transitionFunction = new TransitionFunction();
+    public DFATransitionFunction parseTransitionTable() {
+        DFATransitionFunction transitionFunction = new DFATransitionFunction();
         delta.forEach((x, y) -> {
             y.forEach((a, b) -> {
-                transitionFunction.setTransition(new State(x), new State(b), a.charAt(0));
+                transitionFunction.addTransition(new State(x), new State(b), a.charAt(0));
             });
         });
         return transitionFunction;

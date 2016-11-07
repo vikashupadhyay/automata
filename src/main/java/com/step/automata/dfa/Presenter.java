@@ -1,4 +1,6 @@
-package com.step.automata;
+package com.step.automata.dfa;
+
+import com.step.automata.dfa.DFAMachine;
 
 import java.util.HashSet;
 import java.util.Iterator;

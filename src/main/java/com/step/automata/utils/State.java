@@ -1,4 +1,4 @@
-package com.step.automata;
+package com.step.automata.utils;
 
 public class State {
     private final String state;

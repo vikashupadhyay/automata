@@ -1,4 +1,4 @@
-package com.step.automata;
+package com.step.automata.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -7,7 +7,7 @@ import com.google.gson.JsonObject;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class DataParser {
+public class JsonReader {
     public JsonArray parse(String path) throws IOException {
         com.google.gson.JsonParser jsonParser = new com.google.gson.JsonParser();
         String string = jsonParser.parse(new FileReader(path)).getAsString();

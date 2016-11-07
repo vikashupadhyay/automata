@@ -1,17 +1,20 @@
-package com.step.automata;
+package com.step.automata.dfa;
+
+import com.step.automata.utils.State;
+import com.step.automata.utils.States;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class DFAMachine {
-    private final TransitionFunction transitionFunction;
+    private final DFATransitionFunction transitionFunction;
     private final State initialState;
-    private final HashSet<State> states;
-    private final HashSet<State> finalStates;
+    private final States states;
+    private final States finalStates;
     private final HashSet<Character> alphabets;
 
 
-    public DFAMachine(TransitionFunction transitionFunction, State initialState, HashSet<State> finalStates, HashSet<State> states, HashSet<Character> alphabets) {
+    public DFAMachine(DFATransitionFunction transitionFunction, State initialState, States finalStates, States states, HashSet<Character> alphabets) {
         this.transitionFunction = transitionFunction;
         this.initialState = initialState;
         this.states = states;
@@ -19,13 +22,13 @@ public class DFAMachine {
         this.alphabets = alphabets;
     }
 
-    public boolean isRecognizes(String pattern) {
+    public boolean isRecognizes(String alphabets) {
         State currentState = initialState;
         validateState(currentState);
         validateAllStates(transitionFunction.getAllState());
-        for (char transition : pattern.toCharArray()) {
+        for (char transition : alphabets.toCharArray()) {
             validateTransition(transition);
-            currentState = transitionFunction.getNextState(currentState, transition);
+            currentState = transitionFunction.nextState(currentState, transition);
         }
         return finalStates.contains(currentState);
     }

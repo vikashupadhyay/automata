@@ -1,12 +1,14 @@
-package com.step.automata;
+package com.step.automata.dfa;
 
 import com.google.gson.JsonArray;
+import com.step.automata.utils.JsonReader;
+import com.step.automata.utils.JsonParser;
 
 import java.io.IOException;
 
 public class DFAMain {
     public static void main(String[] args) {
-        DataParser dataParser = new DataParser();
+        JsonReader dataParser = new JsonReader();
         try {
             JsonArray parse = dataParser.parse("/Users/kvikas/step2Sem/automata/data/examples.json");
             for (int i = 0; i < parse.size(); i++) {
