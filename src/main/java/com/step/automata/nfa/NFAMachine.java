@@ -1,7 +1,8 @@
 package com.step.automata.nfa;
 
-import com.step.automata.utils.States;
 import com.step.automata.utils.State;
+import com.step.automata.utils.States;
+import com.step.automata.utils.TransitionTable;
 
 import java.util.HashSet;
 
@@ -12,9 +13,9 @@ public class NFAMachine {
     private final States allStates;
     private final HashSet<Character> alphabets;
 
-    public NFAMachine(NFATransitionFunction transitionFunction, State state, States finalStates, States allStates, HashSet<Character> alphabets) {
+    public NFAMachine(TransitionTable transitionFunction, State state, States finalStates, States allStates, HashSet<Character> alphabets) {
 
-        this.transitionFunction = transitionFunction;
+        this.transitionFunction = (NFATransitionFunction) transitionFunction;
         this.state = state;
         this.finalStates = finalStates;
         this.allStates = allStates;

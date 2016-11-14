@@ -56,7 +56,7 @@ public class NFATransitionFunctionTest {
 
         nfaTransitionFunction.addTransition(q1, stateForQ1OnEpsilon, 'e');
         nfaTransitionFunction.addTransition(q2, stateForQ2, '1');
-        States epsilonStates = nfaTransitionFunction.getNextStateOnGivenState(q1,'1');
+        States epsilonStates = nfaTransitionFunction.getNextStateOnGivenState(q1, '1');
 
         States expectedStates = new States();
         expectedStates.add(q4);

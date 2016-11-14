@@ -23,11 +23,6 @@ public class NFATransitionFunction implements TransitionTable<States> {
     }
 
 
-    @Override
-    public String toString() {
-        return transitionTable.toString();
-    }
-
     public States getNextStateOnGivenState(State state, char alphabet) {
         HashMap<Character, States> characterStatesHashMap = transitionTable.get(state);
 
@@ -39,7 +34,7 @@ public class NFATransitionFunction implements TransitionTable<States> {
         Iterator<State> iterator = states.iterator();
         while (iterator.hasNext()) {
             State next = iterator.next();
-            States states1 = transitionTable.get(next).get(alphabet)== null ? new States() : transitionTable.get(next).get(alphabet);
+            States states1 = transitionTable.get(next).get(alphabet) == null ? new States() : transitionTable.get(next).get(alphabet);
             currentStates.addAll(states1);
         }
 
@@ -75,4 +70,30 @@ public class NFATransitionFunction implements TransitionTable<States> {
     }
 
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        NFATransitionFunction that = (NFATransitionFunction) o;
+
+        if (transitionTable != null ? !transitionTable.equals(that.transitionTable) : that.transitionTable != null)
+            return false;
+        return EPSILON != null ? EPSILON.equals(that.EPSILON) : that.EPSILON == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = transitionTable != null ? transitionTable.hashCode() : 0;
+        result = 31 * result + (EPSILON != null ? EPSILON.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "" +
+                transitionTable;
+
+    }
 }

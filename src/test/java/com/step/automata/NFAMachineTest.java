@@ -13,7 +13,7 @@ import static org.junit.Assert.assertTrue;
 
 public class NFAMachineTest {
     @Test
-    public void shouldCreateNFAMachine() throws Exception {
+    public void shouldPassAlternateCharactersBeginningAndendingWithSameLetter() throws Exception {
         State q1State = new State("q1");
         State q2State = new State("q2");
         State q3State = new State("q3");
@@ -71,7 +71,6 @@ public class NFAMachineTest {
         alphabets.add('0');
         alphabets.add('1');
         NFAMachine nfaMachine = new NFAMachine(transitionFunction, new State("q1"), finalStates, allStates, alphabets);
-        System.out.println(transitionFunction);
         assertTrue(nfaMachine.isRecognizes("010"));
         assertTrue(nfaMachine.isRecognizes("0"));
         assertTrue(nfaMachine.isRecognizes("1"));

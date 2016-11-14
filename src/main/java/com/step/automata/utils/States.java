@@ -17,8 +17,8 @@ public class States {
 
     public boolean hasIntersection(States anotherState) {
         Iterator<State> iterator = anotherState.iterator();
-        while (iterator.hasNext()){
-            if(states.contains(iterator.next())) return true;
+        while (iterator.hasNext()) {
+            if (states.contains(iterator.next())) return true;
         }
         return false;
     }
@@ -35,15 +35,28 @@ public class States {
         return states.size();
     }
 
-    public Iterator<State> iterator(){
+    public Iterator<State> iterator() {
         return states.iterator();
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty() {
         return states.isEmpty();
     }
 
 
+    @Override
+    public String toString() {
+        return states.toString();
+    }
+
+    public HashSet<State> getStates() {
+        return states;
+    }
+
+    public void addAll(States anotherStates) {
+        HashSet<State> setOfStates = anotherStates.getStates();
+        states.addAll(setOfStates);
+    }
 
     @Override
     public boolean equals(Object o) {
@@ -59,19 +72,5 @@ public class States {
     @Override
     public int hashCode() {
         return states != null ? states.hashCode() : 0;
-    }
-
-    @Override
-    public String toString() {
-        return states.toString();
-    }
-
-    public HashSet<State> getStates() {
-        return states;
-    }
-
-    public void addAll(States anotherStates) {
-        HashSet<State> setOfStates = anotherStates.getStates();
-        states.addAll(setOfStates);
     }
 }

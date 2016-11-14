@@ -50,4 +50,5 @@ public class DFATransitionFunction implements TransitionTable<State> {
     public State nextState(State currentState, char alphabet) {
         return transitionTable.get(currentState).get(alphabet);
     }
+
 }

@@ -1,8 +1,7 @@
 package com.step.automata.utils;
 
-import com.step.automata.dfa.DFATransitionFunction;
-
 import java.util.HashSet;
+import java.util.Objects;
 
 public class JsonParser {
     private final String name;
@@ -20,6 +19,17 @@ public class JsonParser {
         return type;
     }
 
+    @Override
+    public String toString() {
+        return "JsonParser{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", tuple=" + tuple +
+                ", pass_cases=" + pass_cases +
+                ", fail_cases=" + fail_cases +
+                '}';
+    }
+
     public JsonParser(String name, String type, TupleParser tuple, HashSet<String> pass_cases, HashSet<String> fail_cases) {
         this.name = name;
         this.type = type;
@@ -28,13 +38,17 @@ public class JsonParser {
         this.fail_cases = fail_cases;
     }
 
-    public DFATransitionFunction parseTransitionTable() {
-        return tuple.parseTransitionTable();
-    }
-
     public States parseAllStates() {
         return tuple.parseStates();
     }
+
+    public TransitionTable parseTransitionTable() {
+        if (Objects.equals(type, "dfa"))
+            return tuple.parseDFATransitionTable();
+        else
+            return tuple.parseNFATransitionTable();
+    }
+
 
     public State parseStartStates() {
         return tuple.parseStartState();

@@ -2,6 +2,7 @@ package com.step.automata.dfa;
 
 import com.step.automata.utils.State;
 import com.step.automata.utils.States;
+import com.step.automata.utils.TransitionTable;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,8 +15,8 @@ public class DFAMachine {
     private final HashSet<Character> alphabets;
 
 
-    public DFAMachine(DFATransitionFunction transitionFunction, State initialState, States finalStates, States states, HashSet<Character> alphabets) {
-        this.transitionFunction = transitionFunction;
+    public DFAMachine(TransitionTable transitionFunction, State initialState, States finalStates, States states, HashSet<Character> alphabets) {
+        this.transitionFunction = (DFATransitionFunction) transitionFunction;
         this.initialState = initialState;
         this.states = states;
         this.finalStates = finalStates;

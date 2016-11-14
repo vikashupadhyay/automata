@@ -2,7 +2,6 @@ package com.step.automata.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -20,11 +19,8 @@ public class JsonReader {
         return jsonString.replaceAll("-", "_");
     }
 
-    public JsonParser parseJson(String string) {
+    public JsonParser parseJson(String string) throws IOException {
         Gson gson = new Gson();
-        com.google.gson.JsonParser jsonParser = new com.google.gson.JsonParser();
-        JsonObject parse = (JsonObject) jsonParser.parse(string);
-        JsonParser parser = gson.fromJson(parse, JsonParser.class);
-        return parser;
+        return gson.fromJson(string, JsonParser.class);
     }
 }
